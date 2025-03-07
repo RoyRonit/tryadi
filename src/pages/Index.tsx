@@ -6,6 +6,7 @@ import InterestCategories from "@/components/InterestCategories";
 import CampaignDates from "@/components/CampaignDates";
 import BudgetInput from "@/components/BudgetInput";
 import CampaignSummary from "@/components/CampaignSummary";
+import { PlaceholdersAndVanishInputDemo } from "@/components/PlaceholdersAndVanishInputDemo";
 import { generateInterestCategories } from "@/lib/mockData";
 
 // Campaign creation steps
@@ -85,6 +86,9 @@ const Index = () => {
     setCurrentStep(Step.WebsiteInput);
   };
 
+  // Uncomment this to showcase the fancy input demo
+  // return <PlaceholdersAndVanishInputDemo />;
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-background to-muted/20 py-12 px-4">
       <div className="w-full max-w-2xl">
@@ -141,6 +145,6 @@ const Index = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Index;
