@@ -5,6 +5,7 @@ import WebsiteInput from "@/components/WebsiteInput";
 import CampaignDates from "@/components/CampaignDates";
 import BudgetInput from "@/components/BudgetInput";
 import CampaignSummary from "@/components/CampaignSummary";
+import LoadingScreen from "@/components/LoadingScreen";
 import { PlaceholdersAndVanishInputDemo } from "@/components/PlaceholdersAndVanishInputDemo";
 import { generateInterestCategories } from "@/lib/mockData";
 import Chat from "@/components/Chat";
@@ -16,7 +17,8 @@ enum Step {
   WebsiteInput = 0,
   CampaignDates = 1,
   BudgetInput = 2,
-  CampaignSummary = 3,
+  LoadingScreen = 3,
+  CampaignSummary = 4,
 }
 
 // Campaign data interface
@@ -67,6 +69,10 @@ const Index = () => {
       ...campaignData,
       budget,
     });
+    setCurrentStep(Step.LoadingScreen);
+  };
+
+  const handleLoadingComplete = () => {
     setCurrentStep(Step.CampaignSummary);
   };
 
@@ -103,6 +109,10 @@ const Index = () => {
             <BudgetInput onBudgetSet={handleBudgetSet} />
           )}
 
+          {currentStep === Step.LoadingScreen && (
+            <LoadingScreen onComplete={handleLoadingComplete} />
+          )}
+
           {currentStep === Step.CampaignSummary && campaignData.startDate && campaignData.endDate && campaignData.budget && (
             <CampaignSummary
               productUrl={campaignData.productUrl}
@@ -117,7 +127,7 @@ const Index = () => {
 
         <div className="mt-8 flex justify-center">
           <div className="flex space-x-2">
-            {Array.from({ length: 4 }).map((_, index) => (
+            {Array.from({ length: 5 }).map((_, index) => (
               <div
                 key={index}
                 className={`h-2 w-2 rounded-full transition-colors ${
