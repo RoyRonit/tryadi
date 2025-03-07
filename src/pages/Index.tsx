@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import AdManagerHeader from "@/components/AdManagerHeader";
 import WebsiteInput from "@/components/WebsiteInput";
@@ -29,6 +28,8 @@ interface CampaignData {
   startDate: Date | null;
   endDate: Date | null;
   budget: number | null;
+  ageRange: string;
+  targetGender: string;
 }
 
 const Index = () => {
@@ -40,6 +41,8 @@ const Index = () => {
     startDate: null,
     endDate: null,
     budget: null,
+    ageRange: "18-34",
+    targetGender: "All",
   });
   const [isChatOpen, setIsChatOpen] = useState(false);
 
@@ -49,7 +52,6 @@ const Index = () => {
       ...campaignData,
       productUrl: url,
       suggestedInterests,
-      // Automatically select all suggested interests since we're skipping the interest selection step
       selectedInterests: suggestedInterests,
     });
     setCurrentStep(Step.CampaignDates);
@@ -84,12 +86,11 @@ const Index = () => {
       startDate: null,
       endDate: null,
       budget: null,
+      ageRange: "18-34",
+      targetGender: "All",
     });
     setCurrentStep(Step.WebsiteInput);
   };
-
-  // Uncomment this to showcase the fancy input demo
-  // return <PlaceholdersAndVanishInputDemo />;
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-background to-muted/20 py-12 px-4">
@@ -120,6 +121,8 @@ const Index = () => {
               startDate={campaignData.startDate}
               endDate={campaignData.endDate}
               budget={campaignData.budget}
+              ageRange={campaignData.ageRange}
+              targetGender={campaignData.targetGender}
               onCreateNewCampaign={handleCreateNewCampaign}
             />
           )}
@@ -143,7 +146,6 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Chat button */}
       <Button
         onClick={() => setIsChatOpen(!isChatOpen)}
         className="fixed bottom-4 right-4 rounded-full h-12 w-12 bg-gradient-to-r from-tiktok-blue to-tiktok-red p-0 shadow-lg"
@@ -152,7 +154,6 @@ const Index = () => {
         <MessageCircle />
       </Button>
 
-      {/* Chat component */}
       <Chat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </div>
   );

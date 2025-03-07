@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { format } from "date-fns";
-import { Check, RefreshCw, ExternalLink } from "lucide-react";
+import { Check, RefreshCw, ExternalLink, Users, GraduationCap } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
 interface CampaignSummaryProps {
@@ -12,6 +12,8 @@ interface CampaignSummaryProps {
   endDate: Date;
   budget: number;
   onCreateNewCampaign: () => void;
+  ageRange?: string; // Optional age range
+  targetGender?: string; // Optional target gender
 }
 
 const CampaignSummary = ({
@@ -21,6 +23,8 @@ const CampaignSummary = ({
   endDate,
   budget,
   onCreateNewCampaign,
+  ageRange = "18-34", // Default value
+  targetGender = "All", // Default value
 }: CampaignSummaryProps) => {
   const { toast } = useToast();
 
@@ -80,6 +84,24 @@ const CampaignSummary = ({
                 </span>
               ))}
             </div>
+          </div>
+
+          {/* New Age Range Section */}
+          <div>
+            <h3 className="text-sm font-medium text-muted-foreground">Age Range</h3>
+            <p className="text-sm mt-1 font-medium flex items-center">
+              <GraduationCap className="h-4 w-4 mr-2 text-tiktok-blue" />
+              {ageRange}
+            </p>
+          </div>
+
+          {/* New Gender Section */}
+          <div>
+            <h3 className="text-sm font-medium text-muted-foreground">Target Gender</h3>
+            <p className="text-sm mt-1 font-medium flex items-center">
+              <Users className="h-4 w-4 mr-2 text-tiktok-blue" />
+              {targetGender}
+            </p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
