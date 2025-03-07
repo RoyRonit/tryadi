@@ -2,7 +2,6 @@
 import { useState } from "react";
 import AdManagerHeader from "@/components/AdManagerHeader";
 import WebsiteInput from "@/components/WebsiteInput";
-import InterestCategories from "@/components/InterestCategories";
 import CampaignDates from "@/components/CampaignDates";
 import BudgetInput from "@/components/BudgetInput";
 import CampaignSummary from "@/components/CampaignSummary";
@@ -15,10 +14,9 @@ import { MessageCircle } from "lucide-react";
 // Campaign creation steps
 enum Step {
   WebsiteInput = 0,
-  InterestCategories = 1,
-  CampaignDates = 2,
-  BudgetInput = 3,
-  CampaignSummary = 4,
+  CampaignDates = 1,
+  BudgetInput = 2,
+  CampaignSummary = 3,
 }
 
 // Campaign data interface
@@ -49,14 +47,8 @@ const Index = () => {
       ...campaignData,
       productUrl: url,
       suggestedInterests,
-    });
-    setCurrentStep(Step.InterestCategories);
-  };
-
-  const handleInterestsSelected = (selectedInterests: string[]) => {
-    setCampaignData({
-      ...campaignData,
-      selectedInterests,
+      // Automatically select all suggested interests since we're skipping the interest selection step
+      selectedInterests: suggestedInterests,
     });
     setCurrentStep(Step.CampaignDates);
   };
@@ -103,13 +95,6 @@ const Index = () => {
             <WebsiteInput onWebsiteSubmit={handleWebsiteSubmit} />
           )}
 
-          {currentStep === Step.InterestCategories && (
-            <InterestCategories
-              suggestedInterests={campaignData.suggestedInterests}
-              onInterestsSelected={handleInterestsSelected}
-            />
-          )}
-
           {currentStep === Step.CampaignDates && (
             <CampaignDates onDatesSelected={handleDatesSelected} />
           )}
@@ -132,7 +117,7 @@ const Index = () => {
 
         <div className="mt-8 flex justify-center">
           <div className="flex space-x-2">
-            {Array.from({ length: 5 }).map((_, index) => (
+            {Array.from({ length: 4 }).map((_, index) => (
               <div
                 key={index}
                 className={`h-2 w-2 rounded-full transition-colors ${
