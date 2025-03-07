@@ -8,6 +8,9 @@ import BudgetInput from "@/components/BudgetInput";
 import CampaignSummary from "@/components/CampaignSummary";
 import { PlaceholdersAndVanishInputDemo } from "@/components/PlaceholdersAndVanishInputDemo";
 import { generateInterestCategories } from "@/lib/mockData";
+import Chat from "@/components/Chat";
+import { Button } from "@/components/ui/button";
+import { MessageCircle } from "lucide-react";
 
 // Campaign creation steps
 enum Step {
@@ -38,6 +41,7 @@ const Index = () => {
     endDate: null,
     budget: null,
   });
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   const handleWebsiteSubmit = (url: string) => {
     const suggestedInterests = generateInterestCategories(url);
@@ -143,8 +147,20 @@ const Index = () => {
           </div>
         </div>
       </div>
+
+      {/* Chat button */}
+      <Button
+        onClick={() => setIsChatOpen(!isChatOpen)}
+        className="fixed bottom-4 right-4 rounded-full h-12 w-12 bg-gradient-to-r from-tiktok-blue to-tiktok-red p-0 shadow-lg"
+        size="icon"
+      >
+        <MessageCircle />
+      </Button>
+
+      {/* Chat component */}
+      <Chat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </div>
   );
-}
+};
 
 export default Index;
