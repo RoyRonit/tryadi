@@ -1,13 +1,14 @@
 
 import React, { useState, useRef, useEffect } from "react";
-import { Send, X } from "lucide-react";
+import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import ChatMessage from "./ChatMessage";
 import { toast } from "sonner";
+import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
+import { isValidUrl, scrapeWebsite, type ScrapedData } from "@/utils/scrapeService";
 
 interface Message {
-  text: string;
+  text: string | object;
   isUser: boolean;
   timestamp: string;
 }
@@ -20,12 +21,12 @@ interface ChatProps {
 const Chat = ({ isOpen, onClose }: ChatProps) => {
   const [messages, setMessages] = useState<Message[]>([
     {
-      text: "Hello! I'm your TikTok Ad Assistant. How can I help you with your campaign today?",
+      text: "Hello! I'm your TikTok Ad Assistant. Enter a website URL and I'll scrape it for you!",
       isUser: false,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
-  const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -36,54 +37,82 @@ const Chat = ({ isOpen, onClose }: ChatProps) => {
     scrollToBottom();
   }, [messages]);
 
-  const handleSendMessage = (e: React.FormEvent) => {
+  const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!inputValue.trim()) return;
+    const formData = new FormData(e.currentTarget);
+    const url = formData.get('url') as string;
+    
+    if (!url || !url.trim()) return;
 
+    // Add user message to chat
     const userMessage: Message = {
-      text: inputValue,
+      text: url,
       isUser: true,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
-
+    
     setMessages((prev) => [...prev, userMessage]);
-    setInputValue("");
-
-    // Simulate assistant response
-    setTimeout(() => {
-      const assistantMessage: Message = {
-        text: getAssistantResponse(inputValue),
+    
+    // Validate URL
+    if (!isValidUrl(url)) {
+      const errorMessage: Message = {
+        text: "Please enter a valid URL (including http:// or https://)",
         isUser: false,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
-      setMessages((prev) => [...prev, assistantMessage]);
-    }, 1000);
-  };
-
-  const getAssistantResponse = (userInput: string): string => {
-    const userInputLower = userInput.toLowerCase();
+      
+      setMessages((prev) => [...prev, errorMessage]);
+      return;
+    }
     
-    if (userInputLower.includes("hello") || userInputLower.includes("hi")) {
-      return "Hello! How can I help with your TikTok ad campaign?";
-    } else if (userInputLower.includes("interest") || userInputLower.includes("category")) {
-      return "Interest categories help target your ads to the right audience. Try to select categories that match your product or service!";
-    } else if (userInputLower.includes("budget")) {
-      return "Your budget determines how much you'll spend on your campaign. TikTok ads can start with as little as $5 per day!";
-    } else if (userInputLower.includes("date") || userInputLower.includes("duration")) {
-      return "Campaign dates determine when your ads will run. Choose a timeframe that aligns with your marketing goals.";
-    } else if (userInputLower.includes("help")) {
-      return "I can help with your TikTok campaign setup! Ask me about interest categories, budget recommendations, or campaign dates.";
-    } else {
-      return "Thanks for your message! If you have specific questions about your TikTok ad campaign, I'm here to help.";
+    // Show loading state
+    setIsLoading(true);
+    toast.info("Scraping website...");
+    
+    try {
+      // Call the scrape service
+      const scrapedData: ScrapedData = await scrapeWebsite(url);
+      
+      // Add assistant response with scraped data
+      const assistantMessage: Message = {
+        text: scrapedData,
+        isUser: false,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      };
+      
+      setMessages((prev) => [...prev, assistantMessage]);
+      toast.success("Website scraped successfully!");
+    } catch (error) {
+      console.error("Error scraping website:", error);
+      
+      // Add error message
+      const errorMessage: Message = {
+        text: "Sorry, there was an error scraping the website. Please try again.",
+        isUser: false,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      };
+      
+      setMessages((prev) => [...prev, errorMessage]);
+      toast.error("Failed to scrape website");
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  const placeholders = [
+    "Enter a website URL to scrape...",
+    "Try https://example.com",
+    "Enter your product website URL...",
+    "Enter a URL to analyze for your TikTok campaign...",
+    "Enter a competitor's website to analyze...",
+  ];
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed bottom-4 right-4 w-80 sm:w-96 h-96 bg-background border border-border rounded-lg shadow-lg flex flex-col z-50">
       <div className="p-3 border-b flex justify-between items-center bg-gradient-to-r from-tiktok-blue to-tiktok-red">
-        <h3 className="font-medium text-white">TikTok Ad Assistant</h3>
+        <h3 className="font-medium text-white">Website Scraper</h3>
         <Button variant="ghost" size="icon" onClick={onClose} className="text-white hover:bg-white/20">
           <X className="h-4 w-4" />
         </Button>
@@ -99,17 +128,13 @@ const Chat = ({ isOpen, onClose }: ChatProps) => {
         ))}
         <div ref={messagesEndRef} />
       </div>
-      <form onSubmit={handleSendMessage} className="p-3 border-t flex gap-2">
-        <Input
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Type your message..."
-          className="flex-1"
+      <div className="p-3 border-t">
+        <PlaceholdersAndVanishInput
+          placeholders={placeholders}
+          onChange={() => {}}
+          onSubmit={handleSendMessage}
         />
-        <Button type="submit" size="icon" disabled={!inputValue.trim()}>
-          <Send className="h-4 w-4" />
-        </Button>
-      </form>
+      </div>
     </div>
   );
 };
