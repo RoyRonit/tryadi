@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -192,12 +191,6 @@ AdIntellgence Agent</h2>
         </div>
 
         <p className="text-foreground/70 mb-10">To be trusted by 1 million businesses by 2027</p>
-
-        <Button asChild size="lg" className="bg-accent text-white hover:bg-accent/90">
-          <Link to="/campaign/1" className="flex items-center">
-            Book a demo <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
-        </Button>
       </section>
     </div>
   );
