@@ -1,8 +1,9 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, BarChart2, LineChart, Star } from "lucide-react";
+import { ArrowRight, BarChart2, LineChart, Star, Facebook, Instagram, Twitter, Linkedin, Youtube, Search } from "lucide-react";
 import AdManagerHeader from "@/components/AdManagerHeader";
 import { AnimatedHero } from "@/components/ui/animated-hero";
 
@@ -46,9 +47,30 @@ const HomePage = () => {
             </p>
             
             <div className="grid grid-cols-3 md:grid-cols-4 gap-3 mt-10">
-              {['instagram', 'tiktok', 'twitter', 'facebook', 'meta', 'linkedin', 'slack'].map(platform => <div key={platform} className="bg-background/40 p-3 rounded-lg flex items-center justify-center">
-                  <div className="w-10 h-10 rounded bg-background/70"></div>
-                </div>)}
+              <div className="bg-background/40 p-3 rounded-lg flex items-center justify-center">
+                <Instagram className="w-10 h-10 text-pink-500" />
+              </div>
+              <div className="bg-background/40 p-3 rounded-lg flex items-center justify-center">
+                <Facebook className="w-10 h-10 text-blue-600" />
+              </div>
+              <div className="bg-background/40 p-3 rounded-lg flex items-center justify-center">
+                <Twitter className="w-10 h-10 text-blue-400" />
+              </div>
+              <div className="bg-background/40 p-3 rounded-lg flex items-center justify-center">
+                <Linkedin className="w-10 h-10 text-blue-700" />
+              </div>
+              <div className="bg-background/40 p-3 rounded-lg flex items-center justify-center">
+                <Youtube className="w-10 h-10 text-red-600" />
+              </div>
+              <div className="bg-background/40 p-3 rounded-lg flex items-center justify-center">
+                <Search className="w-10 h-10 text-yellow-500" /> {/* Google Ads */}
+              </div>
+              <div className="bg-background/40 p-3 rounded-lg flex items-center justify-center">
+                <svg viewBox="0 0 24 24" className="w-10 h-10 text-cyan-500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 8V16C21 18.7614 18.7614 21 16 21H8C5.23858 21 3 18.7614 3 16V8C3 5.23858 5.23858 3 8 3H16C18.7614 3 21 5.23858 21 8Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 8V16M8 12H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
             </div>
           </CardContent>
         </Card>
