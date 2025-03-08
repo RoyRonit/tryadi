@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 function AnimatedHero() {
   const [titleNumber, setTitleNumber] = useState(0);
-  const titles = useMemo(() => ["cursor for ads", "vibe-marketing for ads", "automation for ads"], []);
+  const titles = useMemo(() => ["cursor for ads", "vibe marketing for ads", "automation for ads"], []);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
