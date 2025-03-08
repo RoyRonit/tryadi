@@ -21,8 +21,8 @@ export default {
 		extend: {
 			colors: {
 				tiktok: {
-					blue: "#25F4EE",
-					red: "#FE2C55",
+					blue: "hsl(var(--tiktok-blue))",
+					red: "hsl(var(--tiktok-red))",
 				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
