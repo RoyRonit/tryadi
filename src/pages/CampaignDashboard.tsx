@@ -22,7 +22,7 @@ const generateMockChartData = (dataPoints = 10, initialValue = 100, growthRate =
 const campaignData = {
   1: {
     id: 1,
-    name: "Yhangy Campaign",
+    name: "Yhangry Campaign",
     status: "active",
     chartData: {
       impressions: generateMockChartData(10, 1000, 1.3),

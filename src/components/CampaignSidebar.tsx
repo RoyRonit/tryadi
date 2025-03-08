@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 const campaigns = [
   {
     id: 1,
-    name: "Yhangy Campaign",
+    name: "Yhangry Campaign",
     status: "active",
   }
 ];
