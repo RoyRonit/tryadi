@@ -103,7 +103,7 @@ const Pricing = () => {
             </div>
             <h3 className="text-xl font-bold text-center">Our AI Media Buying Agent</h3>
             <div className="text-center">
-              <p className="text-2xl font-bold text-tiktok-red">$1,500<span className="text-sm font-normal text-muted-foreground">/month</span></p>
+              <p className="text-2xl font-bold text-tiktok-red">$500<span className="text-sm font-normal text-muted-foreground">/month</span></p>
               <p className="text-sm text-muted-foreground">Starting at</p>
             </div>
           </CardHeader>
