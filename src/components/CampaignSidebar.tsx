@@ -1,6 +1,6 @@
 
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
-import { Campaign, Layers } from "lucide-react";
+import { BarChart2, Layers } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const campaigns = [
@@ -29,7 +29,7 @@ export function CampaignSidebar() {
                       : ""
                   }>
                     <Link to={`/campaign/${campaign.id}`}>
-                      <Campaign />
+                      <BarChart2 />
                       <span>{campaign.name}</span>
                     </Link>
                   </SidebarMenuButton>

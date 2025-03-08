@@ -10,7 +10,7 @@ import { PlaceholdersAndVanishInputDemo } from "@/components/PlaceholdersAndVani
 import { generateInterestCategories } from "@/lib/mockData";
 import Chat from "@/components/Chat";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, DollarSign, Campaign, Zap } from "lucide-react";
+import { MessageCircle, DollarSign, BarChart2, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 
 // Campaign creation steps
@@ -108,7 +108,7 @@ const Index = () => {
             </Button>
             <Button variant="outline" size="sm" asChild>
               <Link to="/campaign/1" className="flex items-center gap-1">
-                <Campaign className="h-4 w-4" />
+                <BarChart2 className="h-4 w-4" />
                 View Dashboard
               </Link>
             </Button>
