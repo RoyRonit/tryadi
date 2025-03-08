@@ -153,7 +153,36 @@ AdIntellgence Agent</h2>
         <div className="flex justify-center mb-8">
           <div className="relative">
             <div className="flex -space-x-4">
-              {[1, 2, 3, 4, 5, 6].map(i => <div key={i} className="w-12 h-12 rounded-full border-2 border-background bg-muted" />)}
+              <img 
+                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-1.2.1&auto=format&fit=crop&w=120&h=120&q=80" 
+                alt="User testimonial" 
+                className="w-12 h-12 rounded-full border-2 border-background object-cover"
+              />
+              <img 
+                src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=120&h=120&q=80" 
+                alt="User testimonial" 
+                className="w-12 h-12 rounded-full border-2 border-background object-cover"
+              />
+              <img 
+                src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?ixlib=rb-1.2.1&auto=format&fit=crop&w=120&h=120&q=80" 
+                alt="User testimonial" 
+                className="w-12 h-12 rounded-full border-2 border-background object-cover"
+              />
+              <img 
+                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=120&h=120&q=80" 
+                alt="User testimonial" 
+                className="w-12 h-12 rounded-full border-2 border-background object-cover"
+              />
+              <img 
+                src="https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=120&h=120&q=80" 
+                alt="User testimonial" 
+                className="w-12 h-12 rounded-full border-2 border-background object-cover"
+              />
+              <img 
+                src="https://images.unsplash.com/photo-1545167622-3a6ac756afa4?ixlib=rb-1.2.1&auto=format&fit=crop&w=120&h=120&q=80" 
+                alt="User testimonial" 
+                className="w-12 h-12 rounded-full border-2 border-background object-cover"
+              />
             </div>
           </div>
         </div>
