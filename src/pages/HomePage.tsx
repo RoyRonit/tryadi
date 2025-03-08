@@ -4,8 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, BarChart2, LineChart, Star } from "lucide-react";
 import AdManagerHeader from "@/components/AdManagerHeader";
+import { AnimatedHero } from "@/components/ui/animated-hero";
+
 const HomePage = () => {
-  return <div className="min-h-screen bg-background text-foreground flex flex-col">
+  return (
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
       {/* Navigation Bar */}
       <header className="border-b border-border/10 py-4">
         <div className="container mx-auto px-4 flex justify-between items-center">
@@ -29,13 +32,8 @@ const HomePage = () => {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="py-16 md:py-24 text-center container mx-auto px-4">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6">
-          Automate your social media
-        </h1>
-        <p className="text-xl text-foreground/80 max-w-3xl mx-auto mb-12">Adi* our agent houses a rich set of features to automate your marketing efforts across all social media platforms</p>
-      </section>
+      {/* Hero Section - Using our new AnimatedHero component */}
+      <AnimatedHero />
 
       {/* Features Cards */}
       <section className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-6 mb-20">
@@ -97,6 +95,8 @@ AdIntellgence Agent</h2>
           </Link>
         </Button>
       </section>
-    </div>;
+    </div>
+  );
 };
+
 export default HomePage;
