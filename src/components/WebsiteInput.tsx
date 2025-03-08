@@ -48,7 +48,7 @@ const WebsiteInput = ({ onWebsiteSubmit }: WebsiteInputProps) => {
         <CardHeader>
           <CardTitle className="text-xl flex items-center">
             <Globe className="h-5 w-5 mr-2 text-tiktok-blue" />
-            Enter Product Website
+            Launch a TikTok campaign in 5 clicks
           </CardTitle>
           <CardDescription>
             We'll analyze your website to suggest relevant interest categories
