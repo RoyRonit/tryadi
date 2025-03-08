@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import AdManagerHeader from "@/components/AdManagerHeader";
 import WebsiteInput from "@/components/WebsiteInput";
@@ -9,7 +10,8 @@ import { PlaceholdersAndVanishInputDemo } from "@/components/PlaceholdersAndVani
 import { generateInterestCategories } from "@/lib/mockData";
 import Chat from "@/components/Chat";
 import { Button } from "@/components/ui/button";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, DollarSign } from "lucide-react";
+import { Link } from "react-router-dom";
 
 // Campaign creation steps
 enum Step {
@@ -95,7 +97,15 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-background to-muted/20 py-12 px-4">
       <div className="w-full max-w-2xl">
-        <AdManagerHeader />
+        <div className="flex justify-between items-center mb-6">
+          <AdManagerHeader />
+          <Button variant="outline" size="sm" asChild>
+            <Link to="/pricing" className="flex items-center gap-1">
+              <DollarSign className="h-4 w-4" />
+              Pricing
+            </Link>
+          </Button>
+        </div>
 
         <div className="relative">
           {currentStep === Step.WebsiteInput && (
