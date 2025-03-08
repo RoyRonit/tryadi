@@ -12,14 +12,6 @@ const Pricing = () => {
         <h1 className="text-3xl md:text-4xl font-bold mb-6">
           &quot;It&apos;s like a full-service media buying team, but way cheaper&quot;
         </h1>
-        <div className="flex justify-center gap-4 mb-8">
-          <Button variant="outline" asChild>
-            <Link to="/">Dashboard</Link>
-          </Button>
-          <Button variant="outline" asChild>
-            <Link to="/agent-automations">Agent Automations</Link>
-          </Button>
-        </div>
       </div>
 
       {/* Pricing Cards */}
