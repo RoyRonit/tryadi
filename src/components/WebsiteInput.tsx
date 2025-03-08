@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, Globe } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
-import { GlowButton } from "@/components/ui/glow-button";
 
 interface WebsiteInputProps {
   onWebsiteSubmit: (url: string) => void;
@@ -66,11 +65,10 @@ const WebsiteInput = ({ onWebsiteSubmit }: WebsiteInputProps) => {
           </div>
         </CardContent>
         <CardFooter>
-          <GlowButton 
+          <Button 
             type="submit" 
             disabled={isLoading}
             className="w-full bg-gradient-to-r from-tiktok-blue to-tiktok-red hover:opacity-90 transition-opacity"
-            glowColor="#25F4EE"
           >
             {isLoading ? (
               <span className="flex items-center">
@@ -84,7 +82,7 @@ const WebsiteInput = ({ onWebsiteSubmit }: WebsiteInputProps) => {
                 Continue <ArrowRight className="ml-2 h-4 w-4" />
               </span>
             )}
-          </GlowButton>
+          </Button>
         </CardFooter>
       </form>
     </Card>
