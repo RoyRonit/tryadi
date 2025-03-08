@@ -49,9 +49,9 @@ function AnimatedHero() {
           </div>
           <div className="flex flex-row gap-3">
             <Button asChild size="lg" className="bg-gradient-to-r from-tiktok-blue to-tiktok-red hover:opacity-90 transition-opacity">
-              <Link to="/create-campaign" className="flex items-center">
+              <a href="http://10.0.10.71:8080/" className="flex items-center">
                 Try Now <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
+              </a>
             </Button>
             <Button asChild size="lg" variant="outline">
               <Link to="/agent-automations" className="flex items-center">
