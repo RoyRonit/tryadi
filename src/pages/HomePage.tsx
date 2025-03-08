@@ -191,7 +191,7 @@ AdIntellgence Agent</h2>
           {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-6 h-6 fill-yellow-500 text-yellow-500" />)}
         </div>
 
-        <p className="text-foreground/70 mb-10">To be trusted by 1 Million business by 2027</p>
+        <p className="text-foreground/70 mb-10">To be trusted by 1 million businesses by 2027</p>
 
         <Button asChild size="lg" className="bg-accent text-white hover:bg-accent/90">
           <Link to="/campaign/1" className="flex items-center">
