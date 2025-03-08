@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 import { ArrowRight, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+
 function AnimatedHero() {
   const [titleNumber, setTitleNumber] = useState(0);
   const titles = useMemo(() => ["cursor for ads", "vibe-marketing for ads", "automation for ads"], []);
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (titleNumber === titles.length - 1) {
@@ -17,6 +19,7 @@ function AnimatedHero() {
     }, 2500);
     return () => clearTimeout(timeoutId);
   }, [titleNumber, titles]);
+
   return <div className="w-full">
       <div className="container mx-auto px-4">
         <div className="flex gap-8 py-16 md:py-24 items-center justify-center flex-col">
@@ -46,8 +49,8 @@ function AnimatedHero() {
           </div>
           <div className="flex flex-row gap-3">
             <Button asChild size="lg" className="bg-gradient-to-r from-tiktok-blue to-tiktok-red hover:opacity-90 transition-opacity">
-              <Link to="/campaign/1" className="flex items-center">
-                Book a demo <ArrowRight className="ml-2 h-4 w-4" />
+              <Link to="/create-campaign" className="flex items-center">
+                Try Now <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline">
@@ -60,4 +63,5 @@ function AnimatedHero() {
       </div>
     </div>;
 }
+
 export { AnimatedHero };
