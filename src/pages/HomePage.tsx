@@ -6,6 +6,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, BarChart2, LineChart, Star, Facebook, Instagram, Twitter, Linkedin, Youtube, Search } from "lucide-react";
 import AdManagerHeader from "@/components/AdManagerHeader";
 import { AnimatedHero } from "@/components/ui/animated-hero";
+import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+
+// Dummy data for the chart
+const dummyChartData = [
+  { name: "Jan", impressions: 4000, clicks: 2400, conversions: 600 },
+  { name: "Feb", impressions: 3000, clicks: 1398, conversions: 420 },
+  { name: "Mar", impressions: 2000, clicks: 9800, conversions: 1200 },
+  { name: "Apr", impressions: 2780, clicks: 3908, conversions: 800 },
+  { name: "May", impressions: 1890, clicks: 4800, conversions: 950 },
+  { name: "Jun", impressions: 2390, clicks: 3800, conversions: 850 },
+  { name: "Jul", impressions: 3490, clicks: 4300, conversions: 1100 },
+];
 
 const HomePage = () => {
   return (
@@ -83,7 +95,48 @@ const HomePage = () => {
             </p>
             
             <div className="mt-6 relative h-60 bg-background/40 rounded-lg flex items-center justify-center">
-              <LineChart className="w-20 h-20 text-accent opacity-70" />
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart
+                  data={dummyChartData}
+                  margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                >
+                  <defs>
+                    <linearGradient id="colorImpressions" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.8}/>
+                      <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0}/>
+                    </linearGradient>
+                    <linearGradient id="colorClicks" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#ec4899" stopOpacity={0.8}/>
+                      <stop offset="95%" stopColor="#ec4899" stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
+                  <XAxis dataKey="name" stroke="#9f9ea1" fontSize={12} />
+                  <YAxis stroke="#9f9ea1" fontSize={12} />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'rgba(24, 24, 27, 0.8)', 
+                      border: 'none', 
+                      borderRadius: '8px',
+                      color: '#ffffff' 
+                    }} 
+                  />
+                  <Area 
+                    type="monotone" 
+                    dataKey="impressions" 
+                    stroke="#8b5cf6" 
+                    fillOpacity={1} 
+                    fill="url(#colorImpressions)" 
+                  />
+                  <Area 
+                    type="monotone" 
+                    dataKey="clicks" 
+                    stroke="#ec4899" 
+                    fillOpacity={1} 
+                    fill="url(#colorClicks)" 
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
