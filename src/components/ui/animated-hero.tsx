@@ -51,7 +51,7 @@ function AnimatedHero() {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <Link to="/features" className="flex items-center">
+              <Link to="/agent-automations" className="flex items-center">
                 See features <Clock className="ml-2 h-4 w-4" />
               </Link>
             </Button>
