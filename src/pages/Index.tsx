@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import AdManagerHeader from "@/components/AdManagerHeader";
 import WebsiteInput from "@/components/WebsiteInput";
@@ -33,7 +32,6 @@ interface CampaignData {
   ageRange: string;
   targetGender: string;
 }
-
 const Index = () => {
   const [currentStep, setCurrentStep] = useState<Step>(Step.WebsiteInput);
   const [campaignData, setCampaignData] = useState<CampaignData>({
@@ -44,42 +42,37 @@ const Index = () => {
     endDate: null,
     budget: null,
     ageRange: "18-34",
-    targetGender: "All",
+    targetGender: "All"
   });
   const [isChatOpen, setIsChatOpen] = useState(false);
-
   const handleWebsiteSubmit = (url: string) => {
     const suggestedInterests = generateInterestCategories(url);
     setCampaignData({
       ...campaignData,
       productUrl: url,
       suggestedInterests,
-      selectedInterests: suggestedInterests,
+      selectedInterests: suggestedInterests
     });
     setCurrentStep(Step.CampaignDates);
   };
-
   const handleDatesSelected = (startDate: Date, endDate: Date) => {
     setCampaignData({
       ...campaignData,
       startDate,
-      endDate,
+      endDate
     });
     setCurrentStep(Step.BudgetInput);
   };
-
   const handleBudgetSet = (budget: number) => {
     setCampaignData({
       ...campaignData,
-      budget,
+      budget
     });
     setCurrentStep(Step.LoadingScreen);
   };
-
   const handleLoadingComplete = () => {
     setCurrentStep(Step.CampaignSummary);
   };
-
   const handleCreateNewCampaign = () => {
     setCampaignData({
       productUrl: "",
@@ -89,18 +82,16 @@ const Index = () => {
       endDate: null,
       budget: null,
       ageRange: "18-34",
-      targetGender: "All",
+      targetGender: "All"
     });
     setCurrentStep(Step.WebsiteInput);
   };
-
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-background to-muted/20 py-12 px-4">
+  return <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-background to-muted/20 py-12 px-4">
       <div className="w-full max-w-2xl">
         <div className="flex justify-between items-center mb-6">
           <div>
             <AdManagerHeader />
-            <h2 className="text-lg text-muted-foreground mt-1">Launch a TikTok campaign in 5 clicks</h2>
+            
           </div>
           <div className="flex space-x-2">
             <Button variant="outline" size="sm" asChild>
@@ -119,65 +110,31 @@ const Index = () => {
         </div>
 
         <div className="relative">
-          {currentStep === Step.WebsiteInput && (
-            <WebsiteInput onWebsiteSubmit={handleWebsiteSubmit} />
-          )}
+          {currentStep === Step.WebsiteInput && <WebsiteInput onWebsiteSubmit={handleWebsiteSubmit} />}
 
-          {currentStep === Step.CampaignDates && (
-            <CampaignDates onDatesSelected={handleDatesSelected} />
-          )}
+          {currentStep === Step.CampaignDates && <CampaignDates onDatesSelected={handleDatesSelected} />}
 
-          {currentStep === Step.BudgetInput && (
-            <BudgetInput onBudgetSet={handleBudgetSet} />
-          )}
+          {currentStep === Step.BudgetInput && <BudgetInput onBudgetSet={handleBudgetSet} />}
 
-          {currentStep === Step.LoadingScreen && (
-            <LoadingScreen onComplete={handleLoadingComplete} />
-          )}
+          {currentStep === Step.LoadingScreen && <LoadingScreen onComplete={handleLoadingComplete} />}
 
-          {currentStep === Step.CampaignSummary && campaignData.startDate && campaignData.endDate && campaignData.budget && (
-            <CampaignSummary
-              productUrl={campaignData.productUrl}
-              selectedInterests={campaignData.selectedInterests}
-              startDate={campaignData.startDate}
-              endDate={campaignData.endDate}
-              budget={campaignData.budget}
-              ageRange={campaignData.ageRange}
-              targetGender={campaignData.targetGender}
-              onCreateNewCampaign={handleCreateNewCampaign}
-            />
-          )}
+          {currentStep === Step.CampaignSummary && campaignData.startDate && campaignData.endDate && campaignData.budget && <CampaignSummary productUrl={campaignData.productUrl} selectedInterests={campaignData.selectedInterests} startDate={campaignData.startDate} endDate={campaignData.endDate} budget={campaignData.budget} ageRange={campaignData.ageRange} targetGender={campaignData.targetGender} onCreateNewCampaign={handleCreateNewCampaign} />}
         </div>
 
         <div className="mt-8 flex justify-center">
           <div className="flex space-x-2">
-            {Array.from({ length: 5 }).map((_, index) => (
-              <div
-                key={index}
-                className={`h-2 w-2 rounded-full transition-colors ${
-                  index === currentStep
-                    ? "bg-gradient-to-r from-tiktok-blue to-tiktok-red"
-                    : index < currentStep
-                    ? "bg-muted-foreground/70"
-                    : "bg-muted-foreground/20"
-                }`}
-              />
-            ))}
+            {Array.from({
+            length: 5
+          }).map((_, index) => <div key={index} className={`h-2 w-2 rounded-full transition-colors ${index === currentStep ? "bg-gradient-to-r from-tiktok-blue to-tiktok-red" : index < currentStep ? "bg-muted-foreground/70" : "bg-muted-foreground/20"}`} />)}
           </div>
         </div>
       </div>
 
-      <Button
-        onClick={() => setIsChatOpen(!isChatOpen)}
-        className="fixed bottom-4 right-4 rounded-full h-12 w-12 bg-gradient-to-r from-tiktok-blue to-tiktok-red p-0 shadow-lg"
-        size="icon"
-      >
+      <Button onClick={() => setIsChatOpen(!isChatOpen)} className="fixed bottom-4 right-4 rounded-full h-12 w-12 bg-gradient-to-r from-tiktok-blue to-tiktok-red p-0 shadow-lg" size="icon">
         <MessageCircle />
       </Button>
 
       <Chat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
