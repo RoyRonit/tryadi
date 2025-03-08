@@ -41,10 +41,7 @@ function AnimatedHero() {
               </span>
             </h1>
 
-            <p className="text-xl text-foreground/80 max-w-3xl mx-auto mb-8">
-              Adi* our agent houses a rich set of features to automate your marketing 
-              efforts across all social media platforms
-            </p>
+            <p className="text-xl text-foreground/80 max-w-3xl mx-auto mb-8">Launch and manage your social media ad campaigns and to end with AI agents</p>
           </div>
           <div className="flex flex-row gap-3">
             <Button asChild size="lg" className="bg-gradient-to-r from-tiktok-blue to-tiktok-red hover:opacity-90 transition-opacity">
