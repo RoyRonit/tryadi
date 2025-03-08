@@ -27,7 +27,7 @@ function AnimatedHero() {
             <h1 className="text-5xl md:text-7xl max-w-3xl tracking-tighter text-center font-bold mb-2">
               
               <span className="relative flex w-full justify-center overflow-hidden text-center h-16 md:h-24 md:pb-4 md:pt-1">
-                {titles.map((title, index) => <motion.span key={index} className="absolute font-semibold" initial={{
+                {titles.map((title, index) => <motion.span key={index} className="absolute font-semibold whitespace-nowrap" initial={{
                 opacity: 0,
                 y: "-100%"
               }} transition={{
