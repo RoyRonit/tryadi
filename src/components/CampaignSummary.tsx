@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { format } from "date-fns";
-import { Check, RefreshCw, ExternalLink, Users, GraduationCap } from "lucide-react";
+import { Check, RefreshCw, ExternalLink, Users, GraduationCap, Video } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
 interface CampaignSummaryProps {
@@ -14,6 +14,7 @@ interface CampaignSummaryProps {
   onCreateNewCampaign: () => void;
   ageRange?: string; // Optional age range
   targetGender?: string; // Optional target gender
+  videoUrl?: string; // Optional video URL
 }
 
 const CampaignSummary = ({
@@ -25,6 +26,7 @@ const CampaignSummary = ({
   onCreateNewCampaign,
   ageRange = "18-34", // Default value
   targetGender = "All", // Default value
+  videoUrl,
 }: CampaignSummaryProps) => {
   const { toast } = useToast();
 
@@ -86,7 +88,25 @@ const CampaignSummary = ({
             </div>
           </div>
 
-          {/* New Age Range Section */}
+          {/* Display Video URL if available */}
+          {videoUrl && (
+            <div>
+              <h3 className="text-sm font-medium text-muted-foreground">Promotional Video</h3>
+              <p className="text-sm mt-1 font-medium flex items-center">
+                <Video className="h-4 w-4 mr-2 text-tiktok-red" />
+                <a
+                  href={videoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-tiktok-blue hover:text-tiktok-red transition-colors"
+                >
+                  View Generated Video
+                </a>
+              </p>
+            </div>
+          )}
+
+          {/* Age Range Section */}
           <div>
             <h3 className="text-sm font-medium text-muted-foreground">Age Range</h3>
             <p className="text-sm mt-1 font-medium flex items-center">
@@ -95,7 +115,7 @@ const CampaignSummary = ({
             </p>
           </div>
 
-          {/* New Gender Section */}
+          {/* Gender Section */}
           <div>
             <h3 className="text-sm font-medium text-muted-foreground">Target Gender</h3>
             <p className="text-sm mt-1 font-medium flex items-center">

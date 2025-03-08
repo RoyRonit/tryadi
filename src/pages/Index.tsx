@@ -1,8 +1,10 @@
+
 import { useState } from "react";
 import AdManagerHeader from "@/components/AdManagerHeader";
 import WebsiteInput from "@/components/WebsiteInput";
 import CampaignDates from "@/components/CampaignDates";
 import BudgetInput from "@/components/BudgetInput";
+import VideoGeneration from "@/components/VideoGeneration";
 import CampaignSummary from "@/components/CampaignSummary";
 import LoadingScreen from "@/components/LoadingScreen";
 import { PlaceholdersAndVanishInputDemo } from "@/components/PlaceholdersAndVanishInputDemo";
@@ -17,8 +19,9 @@ enum Step {
   WebsiteInput = 0,
   CampaignDates = 1,
   BudgetInput = 2,
-  LoadingScreen = 3,
-  CampaignSummary = 4,
+  VideoGeneration = 3,
+  LoadingScreen = 4,
+  CampaignSummary = 5,
 }
 
 // Campaign data interface
@@ -31,6 +34,7 @@ interface CampaignData {
   budget: number | null;
   ageRange: string;
   targetGender: string;
+  videoUrl?: string;
 }
 const Index = () => {
   const [currentStep, setCurrentStep] = useState<Step>(Step.WebsiteInput);
@@ -68,8 +72,21 @@ const Index = () => {
       ...campaignData,
       budget
     });
+    setCurrentStep(Step.VideoGeneration);
+  };
+
+  const handleVideoGenerated = (videoUrl: string) => {
+    setCampaignData({
+      ...campaignData,
+      videoUrl
+    });
     setCurrentStep(Step.LoadingScreen);
   };
+
+  const handleSkipVideo = () => {
+    setCurrentStep(Step.LoadingScreen);
+  };
+  
   const handleLoadingComplete = () => {
     setCurrentStep(Step.CampaignSummary);
   };
@@ -82,7 +99,8 @@ const Index = () => {
       endDate: null,
       budget: null,
       ageRange: "18-34",
-      targetGender: "All"
+      targetGender: "All",
+      videoUrl: undefined
     });
     setCurrentStep(Step.WebsiteInput);
   };
@@ -116,15 +134,17 @@ const Index = () => {
 
           {currentStep === Step.BudgetInput && <BudgetInput onBudgetSet={handleBudgetSet} />}
 
+          {currentStep === Step.VideoGeneration && <VideoGeneration onVideoGenerated={handleVideoGenerated} onSkip={handleSkipVideo} />}
+
           {currentStep === Step.LoadingScreen && <LoadingScreen onComplete={handleLoadingComplete} />}
 
-          {currentStep === Step.CampaignSummary && campaignData.startDate && campaignData.endDate && campaignData.budget && <CampaignSummary productUrl={campaignData.productUrl} selectedInterests={campaignData.selectedInterests} startDate={campaignData.startDate} endDate={campaignData.endDate} budget={campaignData.budget} ageRange={campaignData.ageRange} targetGender={campaignData.targetGender} onCreateNewCampaign={handleCreateNewCampaign} />}
+          {currentStep === Step.CampaignSummary && campaignData.startDate && campaignData.endDate && campaignData.budget && <CampaignSummary productUrl={campaignData.productUrl} selectedInterests={campaignData.selectedInterests} startDate={campaignData.startDate} endDate={campaignData.endDate} budget={campaignData.budget} ageRange={campaignData.ageRange} targetGender={campaignData.targetGender} onCreateNewCampaign={handleCreateNewCampaign} videoUrl={campaignData.videoUrl} />}
         </div>
 
         <div className="mt-8 flex justify-center">
           <div className="flex space-x-2">
             {Array.from({
-            length: 5
+            length: 6
           }).map((_, index) => <div key={index} className={`h-2 w-2 rounded-full transition-colors ${index === currentStep ? "bg-gradient-to-r from-tiktok-blue to-tiktok-red" : index < currentStep ? "bg-muted-foreground/70" : "bg-muted-foreground/20"}`} />)}
           </div>
         </div>
