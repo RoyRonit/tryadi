@@ -5,8 +5,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { CampaignSidebar } from "@/components/CampaignSidebar";
-import { ArrowRight, ChevronRight, Lightbulb, Repeat, TrendingUp, Zap } from "lucide-react";
+import { ArrowRight, ChevronRight, Lightbulb, TrendingUp, Zap } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+
+// Mock chart data for campaign metrics
+const generateMockChartData = (dataPoints = 10, initialValue = 100, growthRate = 1.2) => {
+  return Array.from({ length: dataPoints }).map((_, index) => {
+    const day = index + 1;
+    const value = Math.round(initialValue * Math.pow(growthRate, index));
+    return { day: `Day ${day}`, value };
+  });
+};
 
 // Mock campaign data - in a real app, this would come from an API
 const campaignData = {
@@ -14,6 +24,11 @@ const campaignData = {
     id: 1,
     name: "Yhangy Campaign",
     status: "active",
+    chartData: {
+      impressions: generateMockChartData(10, 1000, 1.3),
+      clicks: generateMockChartData(10, 200, 1.25),
+      conversions: generateMockChartData(10, 10, 1.2)
+    },
     stats: {
       views: 45872,
       clicks: 3291,
@@ -24,47 +39,50 @@ const campaignData = {
       roas: 3.2
     },
     recommendations: [
-      "Increase budget by 15% to capitalize on high-performing audience segments",
-      "Add 3 new creative variations based on top performing content",
-      "Schedule posts between 5-9pm to maximize engagement",
-      "Narrow targeting to focus on audiences with >2% CTR",
-      "Extend campaign duration by 2 weeks to leverage current momentum",
-      "Add custom tracking code to better measure conversion value"
+      "Increase budget by 15% to maximize ROI",
+      "Add 3 new creative variations",
+      "Schedule posts between 5-9pm",
+      "Focus on audiences with >2% CTR",
+      "Extend campaign by 2 weeks"
     ]
   }
 };
 
-const statsViews = [
-  {
-    title: "Performance Overview",
-    metrics: [
-      { name: "Views", value: "45,872", icon: <TrendingUp className="text-tiktok-blue" /> },
-      { name: "Clicks", value: "3,291", icon: <Zap className="text-tiktok-blue" /> },
-      { name: "Conversions", value: "218", icon: <Repeat className="text-tiktok-red" /> }
-    ]
+const chartTypes = [
+  { 
+    id: "impressions", 
+    title: "Daily Impressions", 
+    color: "#3b82f6", 
+    icon: <TrendingUp className="text-blue-500" /> 
   },
-  {
-    title: "Cost Metrics",
-    metrics: [
-      { name: "Total Cost", value: "$1,245.67", icon: <TrendingUp className="text-tiktok-blue" /> },
-      { name: "Cost per Click", value: "$0.38", icon: <Zap className="text-tiktok-blue" /> },
-      { name: "ROAS", value: "3.2x", icon: <Repeat className="text-tiktok-red" /> }
-    ]
+  { 
+    id: "clicks", 
+    title: "Daily Clicks", 
+    color: "#8b5cf6", 
+    icon: <Zap className="text-purple-500" /> 
+  },
+  { 
+    id: "conversions", 
+    title: "Daily Conversions", 
+    color: "#ec4899", 
+    icon: <TrendingUp className="text-pink-500" /> 
   }
 ];
 
 const CampaignDashboard = () => {
   const { id } = useParams<{ id: string }>();
   const campaign = campaignData[Number(id) as keyof typeof campaignData];
-  const [currentStatsView, setCurrentStatsView] = useState(0);
+  const [currentChartIndex, setCurrentChartIndex] = useState(0);
   const { toast } = useToast();
   
   if (!campaign) {
     return <div className="p-8">Campaign not found</div>;
   }
 
-  const nextStatsView = () => {
-    setCurrentStatsView((prev) => (prev + 1) % statsViews.length);
+  const currentChart = chartTypes[currentChartIndex];
+  
+  const nextChart = () => {
+    setCurrentChartIndex((prev) => (prev + 1) % chartTypes.length);
   };
 
   const handleApplyRecommendations = () => {
@@ -92,28 +110,40 @@ const CampaignDashboard = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            {/* Performance Metrics Card */}
+            {/* Performance Graph Card */}
             <Card>
               <CardHeader className="flex flex-row items-center justify-between">
                 <div>
-                  <CardTitle>{statsViews[currentStatsView].title}</CardTitle>
-                  <CardDescription>Click to view different metrics</CardDescription>
+                  <CardTitle className="flex items-center gap-2">
+                    {currentChart.icon}
+                    {currentChart.title}
+                  </CardTitle>
+                  <CardDescription>Click to cycle through different metrics</CardDescription>
                 </div>
-                <Button variant="ghost" size="icon" onClick={nextStatsView}>
+                <Button variant="ghost" size="icon" onClick={nextChart}>
                   <ChevronRight />
                 </Button>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {statsViews[currentStatsView].metrics.map((metric) => (
-                    <div key={metric.name} className="flex items-center justify-between p-2 rounded-md hover:bg-muted">
-                      <div className="flex items-center gap-3">
-                        {metric.icon}
-                        <span>{metric.name}</span>
-                      </div>
-                      <span className="font-bold">{metric.value}</span>
-                    </div>
-                  ))}
+                <div className="h-[300px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart
+                      data={campaign.chartData[currentChart.id as keyof typeof campaign.chartData]}
+                      margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
+                      <XAxis dataKey="day" />
+                      <YAxis />
+                      <Tooltip contentStyle={{ backgroundColor: 'white', borderRadius: '8px' }} />
+                      <Line
+                        type="monotone"
+                        dataKey="value"
+                        stroke={currentChart.color}
+                        strokeWidth={3}
+                        activeDot={{ r: 8 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
                 </div>
               </CardContent>
             </Card>
@@ -128,11 +158,11 @@ const CampaignDashboard = () => {
                 <CardDescription>Smart suggestions to optimize your campaign</CardDescription>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-2">
-                  {campaign.recommendations.slice(0, 6).map((rec, index) => (
+                <ul className="space-y-3">
+                  {campaign.recommendations.map((rec, index) => (
                     <li key={index} className="flex items-start gap-2">
-                      <span className="text-tiktok-blue mt-1">•</span>
-                      <span className="text-sm">{rec}</span>
+                      <span className="text-tiktok-blue mt-0.5">•</span>
+                      <span>{rec}</span>
                     </li>
                   ))}
                 </ul>

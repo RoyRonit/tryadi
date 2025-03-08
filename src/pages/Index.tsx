@@ -98,7 +98,10 @@ const Index = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-background to-muted/20 py-12 px-4">
       <div className="w-full max-w-2xl">
         <div className="flex justify-between items-center mb-6">
-          <AdManagerHeader />
+          <div>
+            <AdManagerHeader />
+            <h2 className="text-lg text-muted-foreground mt-1">Launch a TikTok campaign in 5 clicks</h2>
+          </div>
           <div className="flex space-x-2">
             <Button variant="outline" size="sm" asChild>
               <Link to="/pricing" className="flex items-center gap-1">
