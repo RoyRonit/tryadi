@@ -28,10 +28,7 @@ const HomePage = () => {
             <AdManagerHeader />
             
             <nav className="hidden md:flex space-x-8">
-              <Link to="/features" className="text-foreground/80 hover:text-foreground">Features</Link>
               <Link to="/pricing" className="text-foreground/80 hover:text-foreground">Pricing</Link>
-              <Link to="/blog" className="text-foreground/80 hover:text-foreground">Blog</Link>
-              <Link to="/contact" className="text-foreground/80 hover:text-foreground">Contact</Link>
             </nav>
           </div>
           
