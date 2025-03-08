@@ -1,14 +1,11 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, BarChart2, LineChart, Star } from "lucide-react";
 import AdManagerHeader from "@/components/AdManagerHeader";
-
 const HomePage = () => {
-  return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
+  return <div className="min-h-screen bg-background text-foreground flex flex-col">
       {/* Navigation Bar */}
       <header className="border-b border-border/10 py-4">
         <div className="container mx-auto px-4 flex justify-between items-center">
@@ -37,9 +34,7 @@ const HomePage = () => {
         <h1 className="text-5xl md:text-7xl font-bold mb-6">
           Automate your social media
         </h1>
-        <p className="text-xl text-foreground/80 max-w-3xl mx-auto mb-12">
-          Proactiv houses a rich set of features to automate your marketing efforts across all social medias
-        </p>
+        <p className="text-xl text-foreground/80 max-w-3xl mx-auto mb-12">Adi* our agent houses a rich set of features to automate your marketing efforts across all social media platforms</p>
       </section>
 
       {/* Features Cards */}
@@ -53,11 +48,9 @@ const HomePage = () => {
             </p>
             
             <div className="grid grid-cols-3 md:grid-cols-4 gap-3 mt-10">
-              {['instagram', 'tiktok', 'twitter', 'facebook', 'meta', 'linkedin', 'slack'].map((platform) => (
-                <div key={platform} className="bg-background/40 p-3 rounded-lg flex items-center justify-center">
+              {['instagram', 'tiktok', 'twitter', 'facebook', 'meta', 'linkedin', 'slack'].map(platform => <div key={platform} className="bg-background/40 p-3 rounded-lg flex items-center justify-center">
                   <div className="w-10 h-10 rounded bg-background/70"></div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </CardContent>
         </Card>
@@ -78,9 +71,8 @@ const HomePage = () => {
 
       {/* CTA Section */}
       <section className="py-24 text-center container mx-auto px-4">
-        <h2 className="text-4xl md:text-6xl font-bold mb-6">
-          Transform Your Marketing with Proactiv
-        </h2>
+        <h2 className="text-4xl md:text-6xl font-bold mb-6">Transform Your Marketing with Adi*
+AdIntellgence Agent</h2>
         <p className="text-xl text-foreground/80 max-w-3xl mx-auto mb-12">
           Automate Campaigns, Engage Audiences, and Boost Lead Generation with Our All-in-One Marketing Solution
         </p>
@@ -88,20 +80,16 @@ const HomePage = () => {
         <div className="flex justify-center mb-8">
           <div className="relative">
             <div className="flex -space-x-4">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="w-12 h-12 rounded-full border-2 border-background bg-muted" />
-              ))}
+              {[1, 2, 3, 4, 5, 6].map(i => <div key={i} className="w-12 h-12 rounded-full border-2 border-background bg-muted" />)}
             </div>
           </div>
         </div>
 
         <div className="flex items-center justify-center space-x-1 mb-12">
-          {[1, 2, 3, 4, 5].map((i) => (
-            <Star key={i} className="w-6 h-6 fill-yellow-500 text-yellow-500" />
-          ))}
+          {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-6 h-6 fill-yellow-500 text-yellow-500" />)}
         </div>
 
-        <p className="text-foreground/70 mb-10">Trusted by 27,000+ creators</p>
+        <p className="text-foreground/70 mb-10">To be trusted by 1 Million business by 2027</p>
 
         <Button asChild size="lg" className="bg-accent text-white hover:bg-accent/90">
           <Link to="/campaign/1" className="flex items-center">
@@ -109,8 +97,6 @@ const HomePage = () => {
           </Link>
         </Button>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default HomePage;
