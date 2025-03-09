@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,6 +6,7 @@ import { ArrowRight, BarChart2, LineChart, Star, Facebook, Instagram, Twitter, L
 import AdManagerHeader from "@/components/AdManagerHeader";
 import { AnimatedHero } from "@/components/ui/animated-hero";
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+import BookDemoModal from "@/components/BookDemoModal";
 
 // Dummy data for the chart
 const dummyChartData = [
@@ -19,6 +20,8 @@ const dummyChartData = [
 ];
 
 const HomePage = () => {
+  const [bookDemoOpen, setBookDemoOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       {/* Navigation Bar */}
@@ -34,12 +37,21 @@ const HomePage = () => {
           
           <div className="flex items-center space-x-4">
             <Link to="/register" className="text-foreground/80 hover:text-foreground">Register</Link>
-            <Button asChild className="bg-accent text-white hover:bg-accent/90">
-              <Link to="/campaign/1">Book a demo</Link>
+            <Button 
+              className="bg-accent text-white hover:bg-accent/90"
+              onClick={() => setBookDemoOpen(true)}
+            >
+              Book a demo
             </Button>
           </div>
         </div>
       </header>
+
+      {/* Book Demo Modal */}
+      <BookDemoModal 
+        open={bookDemoOpen} 
+        onOpenChange={setBookDemoOpen} 
+      />
 
       {/* Hero Section - Using our new AnimatedHero component */}
       <AnimatedHero />
