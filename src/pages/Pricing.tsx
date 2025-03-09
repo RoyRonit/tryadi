@@ -1,10 +1,16 @@
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card";
 import { Check, X, DollarSign, Clock, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
+import TryNowModal from "@/components/TryNowModal";
 
 const Pricing = () => {
+  const [tryNowOpen, setTryNowOpen] = useState(false);
+  // This could be replaced with your actual meeting link
+  const meetLink = "https://meet.google.com/your-meeting-link";
+
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-muted/20 py-12 px-4">
       {/* Header */}
@@ -137,10 +143,18 @@ const Pricing = () => {
           variant="outline" 
           size="lg"
           className="border-2 border-tiktok-red text-tiktok-red hover:bg-tiktok-red hover:text-white transition-colors"
+          onClick={() => setTryNowOpen(true)}
         >
           Try Risk-Free for 14 Days
         </Button>
       </div>
+
+      {/* TryNow Modal */}
+      <TryNowModal 
+        open={tryNowOpen} 
+        onOpenChange={setTryNowOpen} 
+        meetLink={meetLink}
+      />
     </div>
   );
 };
