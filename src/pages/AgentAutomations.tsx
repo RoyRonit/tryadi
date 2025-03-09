@@ -57,8 +57,8 @@ const CreateRuleCard = ({ onOpenModal }: { onOpenModal: () => void }) => {
 
 const AgentAutomations = () => {
   const [tryNowOpen, setTryNowOpen] = useState(false);
-  // This could be replaced with your actual meeting link
-  const meetLink = "https://meet.google.com/your-meeting-link";
+  // Updated Google Meet link
+  const meetLink = "https://meet.google.com/gxw-ehdh-wqb";
 
   const handleOpenModal = () => {
     setTryNowOpen(true);
