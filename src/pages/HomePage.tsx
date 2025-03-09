@@ -7,7 +7,7 @@ import { ArrowRight, BarChart2, LineChart, Star, Facebook, Instagram, Twitter, L
 import AdManagerHeader from "@/components/AdManagerHeader";
 import { AnimatedHero } from "@/components/ui/animated-hero";
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
-import BookDemoModal from "@/components/BookDemoModal";
+import TryNowModal from "@/components/TryNowModal";
 
 // Dummy data for the chart
 const dummyChartData = [
@@ -21,7 +21,8 @@ const dummyChartData = [
 ];
 
 const HomePage = () => {
-  const [bookDemoOpen, setBookDemoOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const meetLink = "https://meet.google.com/gxw-ehdh-wqb";
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
@@ -39,7 +40,7 @@ const HomePage = () => {
           <div className="flex items-center space-x-4">
             <Button 
               className="bg-accent text-white hover:bg-accent/90"
-              onClick={() => setBookDemoOpen(true)}
+              onClick={() => setModalOpen(true)}
             >
               Book a demo
             </Button>
@@ -47,10 +48,11 @@ const HomePage = () => {
         </div>
       </header>
 
-      {/* Book Demo Modal */}
-      <BookDemoModal 
-        open={bookDemoOpen} 
-        onOpenChange={setBookDemoOpen} 
+      {/* TryNowModal for the Book a demo button */}
+      <TryNowModal 
+        open={modalOpen} 
+        onOpenChange={setModalOpen} 
+        meetLink={meetLink} 
       />
 
       {/* Hero Section - Using our new AnimatedHero component */}
