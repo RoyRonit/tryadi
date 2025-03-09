@@ -1,4 +1,3 @@
-
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Clock } from "lucide-react";
@@ -10,7 +9,7 @@ function AnimatedHero() {
   const [titleNumber, setTitleNumber] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const titles = useMemo(() => ["cursor for ads", "vibe marketing", "automation for ads"], []);
-  const meetLink = "https://meet.google.com/puy-kwpj-hop";
+  const meetLink = "https://meet.google.com/gxw-ehdh-wqb";
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {

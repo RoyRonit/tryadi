@@ -8,8 +8,8 @@ import TryNowModal from "@/components/TryNowModal";
 
 const Pricing = () => {
   const [tryNowOpen, setTryNowOpen] = useState(false);
-  // This could be replaced with your actual meeting link
-  const meetLink = "https://meet.google.com/your-meeting-link";
+  // Correct Google Meet link
+  const meetLink = "https://meet.google.com/gxw-ehdh-wqb";
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-muted/20 py-12 px-4">

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -57,7 +56,6 @@ const CreateRuleCard = ({ onOpenModal }: { onOpenModal: () => void }) => {
 
 const AgentAutomations = () => {
   const [tryNowOpen, setTryNowOpen] = useState(false);
-  // Updated Google Meet link
   const meetLink = "https://meet.google.com/gxw-ehdh-wqb";
 
   const handleOpenModal = () => {
@@ -133,7 +131,6 @@ const AgentAutomations = () => {
         </div>
       </div>
 
-      {/* TryNow Modal */}
       <TryNowModal 
         open={tryNowOpen} 
         onOpenChange={setTryNowOpen} 
