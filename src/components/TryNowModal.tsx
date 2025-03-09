@@ -31,16 +31,17 @@ const TryNowModal = ({ open, onOpenChange, meetLink }: TryNowModalProps) => {
     setIsSubmitting(true);
     
     try {
-      console.log("Submitting customer details to Supabase");
+      console.log("Submitting customer details to Supabase:", { email, phone });
       
       // Save data to Supabase
       const { error, data } = await supabase
         .from('customer_details')
         .insert([{ email, phone }]);
       
-      console.log("Supabase response:", data, error);
+      console.log("Supabase response:", { data, error });
       
       if (error) {
+        console.error("Supabase error details:", error);
         throw error;
       }
       
@@ -54,13 +55,13 @@ const TryNowModal = ({ open, onOpenChange, meetLink }: TryNowModalProps) => {
       setEmail("");
       setPhone("");
       onOpenChange(false);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error saving callback details:", error);
       toast({
         title: "Something went wrong",
-        description: "Please try again later.",
+        description: error.message || "Please try again later.",
         variant: "destructive",
-        duration: 3000,
+        duration: 5000,
       });
     } finally {
       setIsSubmitting(false);
