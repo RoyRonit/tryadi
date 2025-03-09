@@ -31,10 +31,14 @@ const TryNowModal = ({ open, onOpenChange, meetLink }: TryNowModalProps) => {
     setIsSubmitting(true);
     
     try {
+      console.log("Submitting customer details to Supabase");
+      
       // Save data to Supabase
-      const { error } = await supabase
+      const { error, data } = await supabase
         .from('customer_details')
         .insert([{ email, phone }]);
+      
+      console.log("Supabase response:", data, error);
       
       if (error) {
         throw error;
