@@ -1,3 +1,4 @@
+
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Clock } from "lucide-react";
@@ -64,7 +65,7 @@ function AnimatedHero() {
               onClick={() => setModalOpen(true)}
             >
               <span className="flex items-center">
-                Try Now <ArrowRight className="ml-2 h-4 w-4" />
+                Get an invite <ArrowRight className="ml-2 h-4 w-4" />
               </span>
             </Button>
             <Button asChild size="lg" variant="outline">
