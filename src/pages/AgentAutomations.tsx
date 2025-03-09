@@ -1,17 +1,21 @@
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Plus, Clock, Zap, TrendingUp, DollarSign, Target } from "lucide-react";
 import { Link } from "react-router-dom";
+import TryNowModal from "@/components/TryNowModal";
 
 const AutomationCard = ({
   icon: Icon,
   title,
   description,
+  onOpenModal,
 }: {
   icon: React.ElementType;
   title: string;
   description: string;
+  onOpenModal: () => void;
 }) => {
   return (
     <Card className="border hover:border-muted-foreground/50 transition-all h-full">
@@ -24,11 +28,13 @@ const AutomationCard = ({
         <h3 className="text-lg font-medium mb-2">{title}</h3>
         <p className="text-sm text-muted-foreground mb-auto">{description}</p>
         <div className="flex justify-end mt-6 gap-2">
-          <Button variant="outline" size="sm">
-            Preview
-          </Button>
-          <Button variant="default" size="sm">
-            Apply
+          <Button 
+            variant="default" 
+            size="sm"
+            onClick={onOpenModal}
+            className="bg-gradient-to-r from-tiktok-blue to-tiktok-red hover:opacity-90 transition-opacity"
+          >
+            Get Onboarded
           </Button>
         </div>
       </CardContent>
@@ -36,9 +42,9 @@ const AutomationCard = ({
   );
 };
 
-const CreateRuleCard = () => {
+const CreateRuleCard = ({ onOpenModal }: { onOpenModal: () => void }) => {
   return (
-    <Card className="border hover:border-muted-foreground/50 transition-all h-full">
+    <Card className="border hover:border-muted-foreground/50 transition-all h-full cursor-pointer" onClick={onOpenModal}>
       <CardContent className="p-6 flex flex-col items-center justify-center h-full">
         <div className="w-10 h-10 rounded-full bg-background border flex items-center justify-center mb-4">
           <Plus className="h-5 w-5" />
@@ -50,6 +56,14 @@ const CreateRuleCard = () => {
 };
 
 const AgentAutomations = () => {
+  const [tryNowOpen, setTryNowOpen] = useState(false);
+  // This could be replaced with your actual meeting link
+  const meetLink = "https://meet.google.com/your-meeting-link";
+
+  const handleOpenModal = () => {
+    setTryNowOpen(true);
+  };
+
   const automations = [
     {
       icon: Clock,
@@ -106,17 +120,25 @@ const AgentAutomations = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <CreateRuleCard />
+          <CreateRuleCard onOpenModal={handleOpenModal} />
           {automations.map((automation, index) => (
             <AutomationCard
               key={index}
               icon={automation.icon}
               title={automation.title}
               description={automation.description}
+              onOpenModal={handleOpenModal}
             />
           ))}
         </div>
       </div>
+
+      {/* TryNow Modal */}
+      <TryNowModal 
+        open={tryNowOpen} 
+        onOpenChange={setTryNowOpen} 
+        meetLink={meetLink}
+      />
     </div>
   );
 };
