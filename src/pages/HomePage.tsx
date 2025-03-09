@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -36,7 +37,6 @@ const HomePage = () => {
           </div>
           
           <div className="flex items-center space-x-4">
-            <Link to="/register" className="text-foreground/80 hover:text-foreground">Register</Link>
             <Button 
               className="bg-accent text-white hover:bg-accent/90"
               onClick={() => setBookDemoOpen(true)}
