@@ -4,10 +4,13 @@ import { motion } from "framer-motion";
 import { ArrowRight, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import TryNowModal from "@/components/TryNowModal";
 
 function AnimatedHero() {
   const [titleNumber, setTitleNumber] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
   const titles = useMemo(() => ["cursor for ads", "vibe marketing", "automation for ads"], []);
+  const meetLink = "https://meet.google.com/puy-kwpj-hop";
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -56,10 +59,14 @@ function AnimatedHero() {
             <p className="text-xl text-foreground/80 max-w-3xl mx-auto mb-8">Launch and manage your social media ad campaigns with AI agents</p>
           </div>
           <div className="flex flex-row gap-3">
-            <Button asChild size="lg" className="bg-gradient-to-r from-tiktok-blue to-tiktok-red hover:opacity-90 transition-opacity">
-              <a href="http://10.0.10.71:8080/" className="flex items-center">
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-tiktok-blue to-tiktok-red hover:opacity-90 transition-opacity"
+              onClick={() => setModalOpen(true)}
+            >
+              <span className="flex items-center">
                 Try Now <ArrowRight className="ml-2 h-4 w-4" />
-              </a>
+              </span>
             </Button>
             <Button asChild size="lg" variant="outline">
               <Link to="/agent-automations" className="flex items-center">
@@ -69,6 +76,13 @@ function AnimatedHero() {
           </div>
         </div>
       </div>
+
+      {/* Modal for Google Meet call */}
+      <TryNowModal 
+        open={modalOpen} 
+        onOpenChange={setModalOpen} 
+        meetLink={meetLink} 
+      />
     </div>;
 }
 
