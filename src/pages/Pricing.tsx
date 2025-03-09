@@ -126,9 +126,9 @@ const Pricing = () => {
           <CardFooter className="pt-2 pb-6 flex justify-center">
             <Button 
               className="w-full max-w-xs bg-gradient-to-r from-tiktok-blue to-tiktok-red hover:opacity-90 transition-opacity"
-              asChild
+              onClick={() => setTryNowOpen(true)}
             >
-              <Link to="/">Get Started</Link>
+              Get Started
             </Button>
           </CardFooter>
         </Card>
