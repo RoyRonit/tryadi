@@ -20,6 +20,22 @@ const Pricing = () => {
         </h1>
       </div>
 
+      {/* Demo Video Section */}
+      <div className="container mx-auto max-w-3xl mb-12">
+        <h2 className="text-2xl font-bold text-center mb-6">See it in action</h2>
+        <div className="relative w-full pb-[56.25%] overflow-hidden rounded-lg shadow-lg">
+          <iframe 
+            className="absolute top-0 left-0 w-full h-full"
+            src="https://www.youtube.com/embed/zY7o21JoAW8?si=x5XMHQ91zrH5eKLq" 
+            title="YouTube video player" 
+            frameBorder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerPolicy="strict-origin-when-cross-origin" 
+            allowFullScreen
+          ></iframe>
+        </div>
+      </div>
+
       {/* Pricing Cards */}
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mb-12">
         {/* Traditional Agencies Card */}
