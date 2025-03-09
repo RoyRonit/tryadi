@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Video, Phone, Mail } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface TryNowModalProps {
   open: boolean;
@@ -22,24 +23,44 @@ interface TryNowModalProps {
 const TryNowModal = ({ open, onOpenChange, meetLink }: TryNowModalProps) => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmitCallback = (e: React.FormEvent) => {
+  const handleSubmitCallback = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
-    // In a real application, you would send this data to your backend
-    console.log("Callback requested:", { email, phone });
-    
-    toast({
-      title: "Callback Requested",
-      description: "We'll contact you soon!",
-      duration: 3000,
-    });
-    
-    // Reset form and close modal
-    setEmail("");
-    setPhone("");
-    onOpenChange(false);
+    try {
+      // Save data to Supabase
+      const { error } = await supabase
+        .from('customer_details')
+        .insert([{ email, phone }]);
+      
+      if (error) {
+        throw error;
+      }
+      
+      toast({
+        title: "Callback Requested",
+        description: "We'll contact you soon!",
+        duration: 3000,
+      });
+      
+      // Reset form and close modal
+      setEmail("");
+      setPhone("");
+      onOpenChange(false);
+    } catch (error) {
+      console.error("Error saving callback details:", error);
+      toast({
+        title: "Something went wrong",
+        description: "Please try again later.",
+        variant: "destructive",
+        duration: 3000,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleJoinCall = () => {
@@ -115,8 +136,12 @@ const TryNowModal = ({ open, onOpenChange, meetLink }: TryNowModalProps) => {
             </div>
             
             <DialogFooter className="sm:justify-end">
-              <Button type="submit" variant="outline">
-                Request Callback
+              <Button 
+                type="submit" 
+                variant="outline"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Submitting..." : "Request Callback"}
               </Button>
             </DialogFooter>
           </form>
