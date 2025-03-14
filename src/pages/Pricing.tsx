@@ -109,8 +109,7 @@ const Pricing = () => {
             <div className="space-y-2">
               {[
                 "AI-powered campaign creation",
-                "0% commission on spend up to $250,000",
-                "Only 5% on spend above $250,000",
+                "Only 5% of the total ad spend",
                 "Automated optimization across platforms",
                 "Real-time performance tracking",
                 "Custom audience targeting",
