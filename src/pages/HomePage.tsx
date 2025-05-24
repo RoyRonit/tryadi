@@ -34,6 +34,14 @@ const HomePage = () => {
             
             <nav className="hidden md:flex space-x-8">
               <Link to="/pricing" className="text-foreground/80 hover:text-foreground">Pricing</Link>
+              <a 
+                href="https://app.tryadinow.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-foreground/80 hover:text-foreground"
+              >
+                App
+              </a>
             </nav>
           </div>
           
